@@ -4,6 +4,9 @@ import unirest
 def get_sensu_status(url, username, password):
     response = unirest.get(url, auth=(username, password))
 
+    if response.code != 200:
+        return response.code, {}
+
     warning = 0
     critical = 0
 
@@ -14,4 +17,4 @@ def get_sensu_status(url, username, password):
             if check['check']['status'] == 2:
                 critical += 1
 
-    return warning, critical
+    return 200, {"warning": warning, "critical": critical}

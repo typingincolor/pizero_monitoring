@@ -26,12 +26,16 @@ def get_hive_status(username, password):
                                   headers={"Content-Type": "application/x-www-form-urlencoded"},
                                   params={"username": username, "password": password})
 
+    if login_response.code != 200:
+        return login_response.code, {}
+
     cookie = login_response.headers['Set-Cookie']
 
     status_response = unirest.get("https://api.hivehome.com/v5/users/" + username + "/widgets/climate",
                                   headers={"Cookie": cookie})
 
-    return status_response.body['active'], \
-           status_response.body['currentTemperature'], \
-           status_response.body['targetTemperature'], \
-           status_response.body['outsideTemperature']
+    if status_response.code != 200:
+        return status_response.code, {}
+
+    return 200, {"active": status_response.body['active'], "currentTemp": status_response.body['currentTemperature'],
+                 "targetTemp": status_response.body['targetTemperature']}
