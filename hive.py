@@ -5,9 +5,9 @@ def map_temperature_to_colour(value):
     minimum = -5.0
     maximum = 24.0
 
-    mid_val = (maximum - minimum) / 2
-    q2 = (maximum - mid_val) / 2
-    q1 = (mid_val - minimum) / 2
+    mid_val = minimum + ((maximum - minimum) / 2)
+    q2 = mid_val + ((maximum - mid_val) / 2)
+    q1 = minimum + ((mid_val - minimum) / 2)
 
     if value > maximum:
         value = maximum

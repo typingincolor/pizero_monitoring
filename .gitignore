@@ -1,3 +1,5 @@
 .idea
 blinkt.py
+
 *.pyc
+test.py
