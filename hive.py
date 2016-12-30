@@ -3,7 +3,7 @@ import unirest
 
 def map_temperature_to_colour(value):
     minimum = -5.0
-    maximum = 30.0
+    maximum = 24.0
 
     mid_val = (maximum - minimum) / 2
     q2 = (maximum - mid_val) / 2
