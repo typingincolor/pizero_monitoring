@@ -33,4 +33,5 @@ def get_hive_status(username, password):
 
     return status_response.body['active'], \
            status_response.body['currentTemperature'], \
-           status_response.body['targetTemperature']
+           status_response.body['targetTemperature'], \
+           status_response.body['outsideTemperature']
