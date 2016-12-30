@@ -15,7 +15,7 @@ parser.add_argument("--sensu-api-url", type=str, help="sensu api url", required=
 args = parser.parse_args()
 
 active, currentTemp, targetTemp = hive.get_hive_status(args.hive_username, args.hive_password)
-critical, warning = sensu.get_sensu_status(args.sensu_api_url, args.sensu_api_username, args.sensu_api_password)
+warning, critical = sensu.get_sensu_status(args.sensu_api_url, args.sensu_api_username, args.sensu_api_password)
 
 if active:
     set_pixel(7, 255, 0, 0, 0.05)
