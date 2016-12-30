@@ -21,11 +21,15 @@ if hive_status == 200:
     if hive_data['active']:
         set_pixel(7, 255, 0, 0, 0.05)
 
-    r,g,b=hive.rgb(12, 23, hive_data['currentTemp'])
+    r, g, b = hive.rgb(12, 23, hive_data['currentTemp'])
     set_pixel(6, r, g, b, 0.05)
+
+    r, g, b = hive.rgb(-5, 30, hive_data['outsideTemp'])
+    set_pixel(5, r, g, b, 0.05)
 else:
     set_pixel(7, 0, 0, 255, 0.05)
     set_pixel(6, 0, 0, 255, 0.05)
+    set_pixel(5, 0, 0, 255, 0.05)
 
 if sensu_status == 200:
     if sensu_data['critical'] == 0 and sensu_data['warning'] == 0:
