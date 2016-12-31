@@ -2,20 +2,20 @@
 
 import hive
 import sensu
-import argparse
+import ConfigParser, os
 from blinkt import set_pixel, set_clear_on_exit, show
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--hive-username", type=str, help="hive username", required=True)
-parser.add_argument("--hive-password", type=str, help="hive password", required=True)
-parser.add_argument("--sensu-api-username", type=str, help="sensu api username", required=True)
-parser.add_argument("--sensu-api-password", type=str, help="sensu api password", required=True)
-parser.add_argument("--sensu-api-url", type=str, help="sensu api url", required=True)
+config = ConfigParser.RawConfigParser()
+config.read(['site.cfg', os.path.expanduser('~/.pizero_monitor.cfg')])
 
-args = parser.parse_args()
+hive_username = config.get("hive", "username")
+hive_password = config.get("hive", "password")
+sensu_username = config.get("sensu", "username")
+sensu_password = config.get("sensu", "password")
+sensu_url = config.get("sensu", "url")
 
-hive_status, hive_data = hive.get_hive_status(args.hive_username, args.hive_password)
-sensu_status, sensu_data = sensu.get_sensu_status(args.sensu_api_url, args.sensu_api_username, args.sensu_api_password)
+hive_status, hive_data = hive.get_hive_status(hive_username, hive_password)
+sensu_status, sensu_data = sensu.get_sensu_status(sensu_url, sensu_username, sensu_password)
 
 if hive_status == 200:
     if hive_data['active']:
