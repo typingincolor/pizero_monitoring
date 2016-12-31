@@ -37,21 +37,26 @@ def map_temperature_to_colour(value):
 
 
 def get_hive_status(username, password):
-    login_response = unirest.post("https://api.hivehome.com/v5/login",
-                                  headers={"Content-Type": "application/x-www-form-urlencoded"},
-                                  params={"username": username, "password": password})
+    try:
+        login_response = unirest.post("https://api.hivehome.com/v5/login",
+                                      headers={"Content-Type": "application/x-www-form-urlencoded"},
+                                      params={"username": username, "password": password})
 
-    if login_response.code != 200:
-        return login_response.code, {}
+        if login_response.code != 200:
+            return login_response.code, {}
 
-    cookie = login_response.headers['Set-Cookie']
+        cookie = login_response.headers['Set-Cookie']
 
-    status_response = unirest.get("https://api.hivehome.com/v5/users/" + username + "/widgets/climate",
-                                  headers={"Cookie": cookie})
+        status_response = unirest.get("https://api.hivehome.com/v5/users/" + username + "/widgets/climate",
+                                      headers={"Cookie": cookie})
 
-    if status_response.code != 200:
-        return status_response.code, {}
+        if status_response.code != 200:
+            return status_response.code, {}
 
-    return 200, {"active": status_response.body['active'], "currentTemp": status_response.body['currentTemperature'],
-                 "targetTemp": status_response.body['targetTemperature'],
-                 "outsideTemp": status_response.body['outsideTemperature']}
+        return 200, {"active": status_response.body['active'],
+                     "currentTemp": status_response.body['currentTemperature'],
+                     "targetTemp": status_response.body['targetTemperature'],
+                     "outsideTemp": status_response.body['outsideTemperature']}
+    except:
+        return 999, {}
+
