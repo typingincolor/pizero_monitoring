@@ -64,7 +64,7 @@ def draw_thermo(temp):
     show_graph(v)
 
 
-blinkt.set_brightness(0.1)
+blinkt.set_brightness(0.04)
 blinkt.set_clear_on_exit(False)
 temp = update_weather()
 draw_thermo(temp)
