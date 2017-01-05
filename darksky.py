@@ -27,20 +27,26 @@ temp = 0
 
 
 def update_weather():
-    global temp
     try:
         darksky = "%s/%s/%s" % (url, API_KEY, LATLNG)
-        print "darksky: %s" % darksky
         r = requests.get(url=darksky)
         temp = r.json().get('currently').get('apparentTemperature')
-        temp = (temp - 32.0) / 1.8
+        temp =  (temp - 32.0) / 1.8
         print("Temperture = " + str(temp) + " C")
+        return temp
     except:
         print("Connection Error")
 
 
-def show_graph(v, r, g, b):
+def show_graph(v):
     v *= 8
+
+    if v < 0:
+        v *= -1.0
+        r, g, b = 0, 0, 255
+    else:
+        r, g, b = 255, 0, 0
+
     for x in range(8):
         if v < 0:
             r, g, b = 0, 0, 0
@@ -55,10 +61,10 @@ def draw_thermo(temp):
     v = temp
     v /= 25
     v += (1 / 8)
-    show_graph(v, 255, 0, 0)
+    show_graph(v)
 
 
 blinkt.set_brightness(0.1)
 blinkt.set_clear_on_exit(False)
-update_weather()
+temp = update_weather()
 draw_thermo(temp)
