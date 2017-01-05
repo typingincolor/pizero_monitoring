@@ -3,3 +3,4 @@ blinkt.py
 
 *.pyc
 test.py
+.pizero_monitor.cfg

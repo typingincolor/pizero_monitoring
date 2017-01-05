@@ -9,7 +9,7 @@ import sensu
 from blinkt import set_pixel, set_clear_on_exit, show
 
 config = ConfigParser.RawConfigParser()
-config.read(['site.cfg', os.path.expanduser('~/.pizero_monitor.cfg')])
+config.read(['.pizero_monitor.cfg', os.path.expanduser('~/.pizero_monitor.cfg')])
 
 
 def pixel(px, hexcolour):
