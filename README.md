@@ -1,10 +1,6 @@
 # pizero_monitoring
 
 ```
-[hive]
-username: xxxx
-password: xxxx
-
 [sensu]
 username: yyyy
 password: yyyy
