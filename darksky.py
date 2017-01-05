@@ -31,7 +31,7 @@ def update_weather():
         darksky = "%s/%s/%s" % (url, API_KEY, LATLNG)
         r = requests.get(url=darksky)
         temp = r.json().get('currently').get('apparentTemperature')
-        temp =  (temp - 32.0) / 1.8
+        temp = (temp - 32.0) / 1.8
         print("Temperture = " + str(temp) + " C")
         return temp
     except:
@@ -47,7 +47,7 @@ def show_graph(v):
     else:
         r, g, b = 255, 0, 0
 
-    for x in range(8):
+    for x in range(7, -1, -1):
         if v < 0:
             r, g, b = 0, 0, 0
         else:
