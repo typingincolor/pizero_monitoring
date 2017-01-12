@@ -32,7 +32,7 @@ def update_weather():
         r = requests.get(url=darksky)
         temp = r.json().get('currently').get('apparentTemperature')
         temp = (temp - 32.0) / 1.8
-        print("Temperture = " + str(temp) + " C")
+        print("Temperature = " + str(temp) + " C")
         return temp
     except:
         print("Connection Error")
@@ -64,7 +64,7 @@ def draw_thermo(temp):
     show_graph(v)
 
 
-blinkt.set_brightness(0.04)
+blinkt.set_brightness(0.1)
 blinkt.set_clear_on_exit(False)
 temp = update_weather()
 draw_thermo(temp)
